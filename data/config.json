@@ -25,33 +25,21 @@
     "reddit": {
       "enabled": true,
       "subreddits": [
-        { "subreddit": "MachineLearning", "sort": "hot", "fetch_limit": 15, "min_score": 50 },
-        { "subreddit": "LocalLLaMA", "sort": "hot", "fetch_limit": 15, "min_score": 30 },
-        { "subreddit": "artificial", "sort": "hot", "fetch_limit": 10, "min_score": 50 }
+        { "subreddit": "MachineLearning", "sort": "hot", "fetch_limit": 15, "min_score": 50 }
       ],
       "fetch_comments": 5
     },
     "rss": [
       { "name": "Simon Willison", "url": "https://simonwillison.net/atom/everything/", "enabled": true, "category": "ai-tools" },
       { "name": "OpenAI Blog", "url": "https://openai.com/blog/rss.xml", "enabled": true, "category": "ai-official" },
-      { "name": "Anthropic Blog", "url": "https://www.anthropic.com/feed.xml", "enabled": true, "category": "ai-official" },
       { "name": "Hugging Face Blog", "url": "https://huggingface.co/blog/feed.xml", "enabled": true, "category": "ai-tools" },
       { "name": "Hacker News AI", "url": "https://hnrss.org/newest?q=AI", "enabled": true, "category": "ai-trends" },
-      { "name": "GitHub Trending Daily", "url": "https://rsshub.app/github/trending/daily", "enabled": true, "category": "github-new" },
-      { "name": "Indie Hackers", "url": "https://www.indiehackers.com/feed", "enabled": true, "category": "indie-money" },
       { "name": "Product Hunt", "url": "https://www.producthunt.com/feed", "enabled": true, "category": "new-products" },
       { "name": "arXiv AI + Robotics + Applied Physics", "url": "https://rss.arxiv.org/rss/cs.AI+cs.RO+physics.app-ph", "enabled": true, "category": "physics-ai" },
       { "name": "arXiv Condensed Matter", "url": "https://rss.arxiv.org/rss/cond-mat", "enabled": true, "category": "physics-ai" },
-      { "name": "Journal of the European Ceramic Society", "url": "https://rss.sciencedirect.com/publication/science/rss/21870764", "enabled": true, "category": "piezoelectric" },
-      { "name": "Journal of Applied Physics", "url": "https://pubs.aip.org/feed/jap/rss", "enabled": true, "category": "piezoelectric" },
-      { "name": "Chemistry of Materials", "url": "https://pubs.acs.org/action/showFeed?type=etoc&feed=rss&jc=cmatex", "enabled": true, "category": "thermoelectric" },
       { "name": "Advanced Functional Materials", "url": "https://onlinelibrary.wiley.com/feed/15214095/most-recent", "enabled": true, "category": "thermoelectric" },
-      { "name": "阮一峰的网络日志", "url": "https://www.ruanyifeng.com/blog/atom.xml", "enabled": true, "category": "tech-blog" },
       { "name": "少数派", "url": "https://sspai.com/feed", "enabled": true, "category": "tech-blog" },
-      { "name": "36氪", "url": "https://36kr.com/feed", "enabled": true, "category": "tech-blog" },
-      { "name": "虎嗅网", "url": "https://www.huxiu.com/rss/0.xml", "enabled": true, "category": "tech-blog" },
-      { "name": "奇客Solidot", "url": "https://www.solidot.org/index.rss", "enabled": true, "category": "tech-blog" },
-      { "name": "知乎每日精选", "url": "https://www.zhihu.com/rss", "enabled": true, "category": "tech-blog" }
+      { "name": "奇客Solidot", "url": "https://www.solidot.org/index.rss", "enabled": true, "category": "tech-blog" }
     ],
     "github": [
       { "type": "repo_releases", "owner": "openai", "repo": "whisper", "enabled": true },
