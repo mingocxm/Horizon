@@ -8,7 +8,7 @@
     "chatgpt_account": null,
     "extra_body": null,
     "temperature": 0.3,
-    "max_tokens": 6144,
+    "max_tokens": 4096,
     "throttle_sec": 6.0,
     "analysis_concurrency": 1,
     "enrichment_concurrency": 1,
