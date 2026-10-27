@@ -1,15 +1,16 @@
 name: Daily Horizon Summary
+
 on:
   schedule:
-    - cron: '0 2 * * *'   # UTC 02:00 = 北京时间 10:00
-  workflow_dispatch:      # 支持手动点 Run workflow
+    - cron: '0 2 * * *'   # 对应每天北京时间 10:00 自动运行
+  workflow_dispatch:      # 支持手动点击 Run workflow 触发
 
 jobs:
   daily-summary:
     runs-on: ubuntu-latest
-    timeout-minutes: 30  # ✅ 新增：最长跑30分钟，超时自动终止
     permissions:
       contents: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,11 +28,10 @@ jobs:
 
       - name: Run Horizon
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          HORIZON_WEBHOOK_URL: ${{ secrets.HORIZON_WEBHOOK_URL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}           # 硅基流动的 API 密钥
+          HORIZON_WEBHOOK_URL: ${{ secrets.HORIZON_WEBHOOK_URL }} # Pushplus 推送地址
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # ✅ 修改这里：--limit 40，仅40条进入AI摘要，抓取还是全抓
-        run: uv run horizon --hours 24 --limit 40
+        run: uv run horizon --hours 24
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
