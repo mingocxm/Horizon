@@ -1,0 +1,44 @@
+name: Daily Horizon Summary
+
+on:
+  schedule:
+    - cron: '0 2 * * *'   # 对应每天北京时间 10:00 自动运行
+  workflow_dispatch:      # 支持手动点击 Run workflow 触发
+
+jobs:
+  daily-summary:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Run Horizon
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}           # 硅基流动的 API 密钥
+          HORIZON_WEBHOOK_URL: ${{ secrets.HORIZON_WEBHOOK_URL }} # Pushplus 推送地址
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: uv run horizon --hours 24
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          keep_files: true
+          commit_message: "Daily Summary: $(date +'%Y-%m-%d')"
+          publish_branch: gh-pages
+          enable_jekyll: true
