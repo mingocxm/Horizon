@@ -8,8 +8,8 @@
     "chatgpt_account": null,
     "extra_body": null,
     "temperature": 0.3,
-    "max_tokens": 8192,
-    "throttle_sec": 3.0,
+    "max_tokens": 6144,
+    "throttle_sec": 6.0,
     "analysis_concurrency": 1,
     "enrichment_concurrency": 1,
     "languages": ["zh"],
@@ -23,7 +23,7 @@
       "min_score": 100
     },
     "reddit": {
-      "enabled": true,
+      "enabled": false,
       "subreddits": [
         { "subreddit": "MachineLearning", "sort": "hot", "fetch_limit": 15, "min_score": 50 }
       ],
