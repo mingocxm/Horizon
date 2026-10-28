@@ -9,7 +9,7 @@ jobs:
     permissions:
       contents: write
     # Job 全局兜底超时
-    timeout-minutes: 35
+    timeout-minutes: 56
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -23,7 +23,7 @@ jobs:
         run: uv sync
       - name: Run Horizon & Push notification
         # 步骤单独超时，优先控制这个AI分析环节
-        timeout-minutes: 30
+        timeout-minutes: 50
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_BASE_URL: https://api.siliconflow.cn/v1
