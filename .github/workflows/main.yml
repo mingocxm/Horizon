@@ -1,7 +1,7 @@
 name: Weekly Horizon Summary
 on:
   schedule:
-    - cron: '0 21 * * 5'   # UTC周五21:00 = 北京时间周六 05:00，一周一次
+    - cron: '0 21 * * 5'   # UTC周五21:00 = 北京时间周六 05:00
   workflow_dispatch:
 
 jobs:
@@ -31,16 +31,33 @@ jobs:
           HORIZON_WEBHOOK_URL: ${{ secrets.HORIZON_WEBHOOK_URL }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 抓取过去7天内容
-          uv run horizon --hours 168
-          SUMMARY_FILE=$(ls -t ./data/summaries/horizon-*-zh.md | head -n1)
-          echo "找到摘要文件：$SUMMARY_FILE"
+          # 即使429部分失败，也继续往下走，不中断
+          uv run horizon --hours 168 || true
+          
+          # 找最新生成的中文摘要文件
+          SUMMARY_FILE=$(ls -t ./data/summaries/horizon-*-zh.md 2>/dev/null | head -n1)
+          
+          if [ -z "$SUMMARY_FILE" ]; then
+            echo "❌ 没找到摘要文件，跳过推送"
+            exit 0
+          fi
+          
+          echo "✅ 找到摘要文件：$SUMMARY_FILE"
           TITLE="Horizon 每周资讯摘要 $(date +%Y-%m-%d)"
-          # 转义双引号，防止json被破坏
-          CONTENT=$(cat "$SUMMARY_FILE" | sed 's/"/\\"/g')
+          # 只取md前800字做预览，不塞全文，避免PushPlus长度超限
+          PREVIEW=$(head -c 800 "$SUMMARY_FILE" | sed 's/"/\\"/g')
+          # 你的GitHub Pages地址
+          PAGE_URL="https://mingocxm.github.io/Horizon/"
+          CONTENT="${PREVIEW}
+          
+          ... 完整摘要请访问网页版：
+          ${PAGE_URL}"
+          
           curl -s -X POST $HORIZON_WEBHOOK_URL \
             -H "Content-Type: application/json" \
             -d "{\"title\":\"$TITLE\",\"content\":\"$CONTENT\",\"template\":\"markdown\"}"
+          echo ""
+          echo "✅ 推送完成"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
