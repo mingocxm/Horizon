@@ -1,8 +1,8 @@
 name: Daily Horizon Summary
 on:
   schedule:
-    - cron: '0 2 * * *'   # UTC 02:00 = 北京时间10:00
-  workflow_dispatch:      # 支持手动点击 Run workflow 触发
+    - cron: '0 21 * * 5'   # UTC周五21点 == 北京时间 周六 05:00，一周一次
+  workflow_dispatch:      # 手动运行
 
 jobs:
   daily-summary:
@@ -24,16 +24,21 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
-      - name: Run Horizon
+      - name: Run Horizon & Push notification
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_BASE_URL: https://api.siliconflow.cn/v1
-          # ✅ 这里是关键：这个版本Horizon识别的变量名
-          HORIZON_NOTIFICATION_WEBHOOK: ${{ secrets.HORIZON_WEBHOOK_URL }}
+          HORIZON_WEBHOOK_URL: ${{ secrets.HORIZON_WEBHOOK_URL }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "Debug Webhook URL: $HORIZON_NOTIFICATION_WEBHOOK"
           uv run horizon --hours 24
+          SUMMARY_FILE=$(ls -t ./data/summaries/horizon-*-zh.md | head -n1)
+          echo "找到摘要文件：$SUMMARY_FILE"
+          TITLE="Horizon 每周资讯摘要 $(date +%Y-%m-%d)"
+          CONTENT=$(cat "$SUMMARY_FILE")
+          curl -s -X POST $HORIZON_WEBHOOK_URL \
+            -H "Content-Type: application/json" \
+            -d "{\"title\":\"$TITLE\",\"content\":\"$CONTENT\",\"template\":\"markdown\"}"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
@@ -41,6 +46,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
           keep_files: true
-          commit_message: "Daily Summary: $(date +'%Y-%m-%d')"
+          commit_message: "Weekly Summary: $(date +%Y-%m-%d)"
           publish_branch: gh-pages
           enable_jekyll: true
