@@ -17,31 +17,41 @@
     "enable_enrich": true,
     "prompt": "你是技术资讯摘要助手。输出中文简短摘要，控制在80-150字。\n\n重点提炼以下三类内容：\n1. 通过AI方法设计或研究材料，特别是压电材料与器件、热电材料与器件、铁电材料；\n2. 用有限元仿真/相场仿真方法研究压电、铁电、热电材料与器件；\n3. 压电、铁电、热电材料的新表征、新配方、性能优化方法与工具。\n\n普通AI、科技资讯一句话简要概括。科研内容标注【科研】，其余标注【其他】。\n格式：【类别】xxx\n【摘要】xxx\n不要多余Markdown、不要标题。"
   },
-  "filtering": {
-    "ai_score_threshold": 6.0,
+  "processing": {
+    "profiles_dir": "profiles",
+    "default_profile": "tech-news",
+    "profile_settings": {
+      "tech-news": { "threshold": 6.0, "topic_dedup": true },
+      "tech-blog": { "threshold": 6.0, "topic_dedup": true },
+      "finance-news": { "threshold": 6.0, "topic_dedup": true },
+      "ai-creator": { "threshold": 6.0, "topic_dedup": true }
+    }
+  },
+  "digest": {
+    "max_items": 150,
     "category_groups": {
       "ai-creator": {
-        "title": "AI创作者雷达",
+        "name": "AI创作者雷达",
         "limit": 40,
         "categories": ["ai-official", "ai-tools", "ai-trends", "new-products"]
       },
       "tech-news": {
-        "title": "科技新闻",
+        "name": "科技新闻",
         "limit": 40,
         "categories": ["tech-news"]
       },
       "finance-news": {
-        "title": "财经新闻",
+        "name": "财经新闻",
         "limit": 10,
         "categories": ["finance"]
       },
       "tech-blog": {
-        "title": "科技博客",
+        "name": "科技博客",
         "limit": 8,
         "categories": ["tech-blog"]
       },
       "ai4s-research": {
-        "title": "AI4S｜压电/铁电/热电材料与仿真",
+        "name": "AI4S｜压电/铁电/热电材料与仿真",
         "limit": 40,
         "categories": ["ai4s-materials", "ai4s-simulation"]
       }
