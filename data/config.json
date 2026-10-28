@@ -2,7 +2,7 @@
   "ai": {
     "provider": "openai",
     "provider_chain": null,
-    "model": "zai-org/GLM-5.3-Flash",
+    "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
     "base_url": "https://api.siliconflow.cn/v1",
     "api_key_env": "OPENAI_API_KEY",
     "chatgpt_account": null,
