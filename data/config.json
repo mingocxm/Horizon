@@ -6,17 +6,13 @@
     "base_url": "https://api.siliconflow.cn/v1",
     "api_key_env": "OPENAI_API_KEY",
     "chatgpt_account": null,
-    "extra_body": {
-      "reasoning_effort": "low"
-    },
+    "extra_body": null,
     "temperature": 0.3,
     "max_tokens": 4096,
-    "throttle_sec": 6.0,
+    "throttle_sec": 2.0,
     "analysis_concurrency": 1,
     "enrichment_concurrency": 1,
-    "languages": ["zh"],
-    "azure_endpoint_env": null,
-    "api_version": null
+    "languages": ["zh"]
   },
   "sources": {
     "hackernews": {
@@ -36,7 +32,7 @@
       { "name": "OpenAI Blog", "url": "https://openai.com/blog/rss.xml", "enabled": true, "category": "ai-official" },
       { "name": "Hugging Face Blog", "url": "https://huggingface.co/blog/feed.xml", "enabled": true, "category": "ai-tools" },
       { "name": "Hacker News AI", "url": "https://hnrss.org/newest?q=AI", "enabled": true, "category": "ai-trends" },
-      { "name": "Product Hunt", "url": "https://www.producthunt.com/feed", "enabled": true, "category": "new-products" },
+      { "name": "Product Hunt", "url": "https://producthunt.com/feed", "enabled": true, "category": "new-products" },
       { "name": "少数派", "url": "https://sspai.com/feed", "enabled": true, "category": "tech-blog" },
       { "name": "奇客Solidot", "url": "https://solidot.org/index.rss", "enabled": true, "category": "tech-blog" }
     ],
