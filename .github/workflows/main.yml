@@ -9,7 +9,7 @@ jobs:
     permissions:
       contents: write
     # Job 全局兜底超时
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -23,14 +23,14 @@ jobs:
         run: uv sync
       - name: Run Horizon & Push notification
         # 步骤单独超时，优先控制这个AI分析环节
-        timeout-minutes: 25
+        timeout-minutes: 30
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_BASE_URL: https://api.siliconflow.cn/v1
           HORIZON_WEBHOOK_URL: ${{ secrets.HORIZON_WEBHOOK_URL }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 即使429部分失败，也继续往下走，不中断
+          # 即使429/单条报错，horizon本身返回错误码也继续往下走
           uv run horizon --hours 168 || true
           
           # 找最新生成的中文摘要文件
