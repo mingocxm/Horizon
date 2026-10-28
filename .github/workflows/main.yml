@@ -3,28 +3,27 @@ on:
   schedule:
     - cron: '0 21 * * 5'   # UTC周五21:00 = 北京时间周六 05:00
   workflow_dispatch:
-
 jobs:
   weekly-summary:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    # Job 全局兜底超时
+    timeout-minutes: 30
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
       - name: Install uv
         uses: astral-sh/setup-uv@v3
-
       - name: Install dependencies
         run: uv sync
-
       - name: Run Horizon & Push notification
+        # 步骤单独超时，优先控制这个AI分析环节
+        timeout-minutes: 25
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_BASE_URL: https://api.siliconflow.cn/v1
@@ -58,7 +57,6 @@ jobs:
             -d "{\"title\":\"$TITLE\",\"content\":\"$CONTENT\",\"template\":\"markdown\"}"
           echo ""
           echo "✅ 推送完成"
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
