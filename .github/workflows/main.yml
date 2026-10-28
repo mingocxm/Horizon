@@ -1,11 +1,11 @@
-name: Daily Horizon Summary
+name: Weekly Horizon Summary
 on:
   schedule:
-    - cron: '0 21 * * 5'   # UTC周五21点 == 北京时间 周六 05:00，一周一次
-  workflow_dispatch:      # 手动运行
+    - cron: '0 21 * * 5'   # UTC周五21:00 = 北京时间周六 05:00，一周一次
+  workflow_dispatch:
 
 jobs:
-  daily-summary:
+  weekly-summary:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -31,11 +31,13 @@ jobs:
           HORIZON_WEBHOOK_URL: ${{ secrets.HORIZON_WEBHOOK_URL }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          uv run horizon --hours 24
+          # 抓取过去7天内容
+          uv run horizon --hours 168
           SUMMARY_FILE=$(ls -t ./data/summaries/horizon-*-zh.md | head -n1)
           echo "找到摘要文件：$SUMMARY_FILE"
           TITLE="Horizon 每周资讯摘要 $(date +%Y-%m-%d)"
-          CONTENT=$(cat "$SUMMARY_FILE")
+          # 转义双引号，防止json被破坏
+          CONTENT=$(cat "$SUMMARY_FILE" | sed 's/"/\\"/g')
           curl -s -X POST $HORIZON_WEBHOOK_URL \
             -H "Content-Type: application/json" \
             -d "{\"title\":\"$TITLE\",\"content\":\"$CONTENT\",\"template\":\"markdown\"}"
