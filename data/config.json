@@ -6,7 +6,9 @@
     "base_url": "https://api.siliconflow.cn/v1",
     "api_key_env": "OPENAI_API_KEY",
     "chatgpt_account": null,
-    "extra_body": null,
+    "extra_body": {
+      "reasoning_effort": "low"
+    },
     "temperature": 0.3,
     "max_tokens": 4096,
     "throttle_sec": 6.0,
@@ -36,7 +38,7 @@
       { "name": "Hacker News AI", "url": "https://hnrss.org/newest?q=AI", "enabled": true, "category": "ai-trends" },
       { "name": "Product Hunt", "url": "https://www.producthunt.com/feed", "enabled": true, "category": "new-products" },
       { "name": "少数派", "url": "https://sspai.com/feed", "enabled": true, "category": "tech-blog" },
-      { "name": "奇客Solidot", "url": "https://www.solidot.org/index.rss", "enabled": true, "category": "tech-blog" }
+      { "name": "奇客Solidot", "url": "https://solidot.org/index.rss", "enabled": true, "category": "tech-blog" }
     ],
     "github": [
       { "type": "repo_releases", "owner": "openai", "repo": "whisper", "enabled": true },
