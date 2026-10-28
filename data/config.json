@@ -2,7 +2,7 @@
   "ai": {
     "provider": "openai",
     "provider_chain": null,
-    "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+    "model": "zai-org/GLM-5.3-Flash",
     "base_url": "https://api.siliconflow.cn/v1",
     "api_key_env": "OPENAI_API_KEY",
     "chatgpt_account": null,
