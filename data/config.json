@@ -9,17 +9,17 @@
     "extra_body": null,
     "temperature": 0.3,
     "max_tokens": 4096,
-    "throttle_sec": 3.0,
-    "analysis_concurrency": 1,
-    "enrichment_concurrency": 1,
+    "throttle_sec": 2.0,
+    "analysis_concurrency": 2,
+    "enrichment_concurrency": 2,
     "languages": ["zh"],
     "request_timeout": 60
   },
   "sources": {
     "hackernews": {
       "enabled": true,
-      "fetch_top_stories": 30,
-      "min_score": 100
+      "fetch_top_stories": 15,
+      "min_score": 150
     },
     "reddit": {
       "enabled": false,
