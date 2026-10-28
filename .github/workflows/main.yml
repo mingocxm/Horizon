@@ -29,6 +29,7 @@ jobs:
           OPENAI_BASE_URL: https://api.siliconflow.cn/v1
           HORIZON_WEBHOOK_URL: ${{ secrets.HORIZON_WEBHOOK_URL }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PYTHONUNBUFFERED: "1"   # ← 加在这里
         run: |
           # 即使429/单条报错，horizon本身返回错误码也继续往下走
           uv run horizon --hours 168 || true
