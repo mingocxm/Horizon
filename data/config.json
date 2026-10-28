@@ -1,0 +1,79 @@
+{
+  "ai": {
+    "provider": "openai",
+    "provider_chain": null,
+    "model": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+    "base_url": "https://api.siliconflow.cn/v1",
+    "api_key_env": "OPENAI_API_KEY",
+    "chatgpt_account": null,
+    "extra_body": null,
+    "temperature": 0.3,
+    "max_tokens": 4096,
+    "throttle_sec": 2.0,
+    "analysis_concurrency": 2,
+    "enrichment_concurrency": 2,
+    "languages": ["zh"],
+    "request_timeout": 60,
+    "enable_enrich": true,
+    "prompt": "你是技术资讯摘要助手。输出中文简短摘要，控制在80-150字。\n\n重点提炼以下三类内容：\n1. 通过AI方法设计或研究材料，特别是压电材料与器件、热电材料与器件、铁电材料；\n2. 用有限元仿真/相场仿真方法研究压电、铁电、热电材料与器件；\n3. 压电、铁电、热电材料的新表征、新配方、性能优化方法与工具。\n\n普通AI、科技资讯一句话简要概括。科研内容标注【科研】，其余标注【其他】。\n格式：【类别】xxx\n【摘要】xxx\n不要多余Markdown、不要标题。"
+  },
+  "filtering": {
+    "ai_score_threshold": 6.0,
+    "category_groups": {
+      "ai-creator": {
+        "title": "AI创作者雷达",
+        "limit": 40,
+        "categories": ["ai-official", "ai-tools", "ai-trends", "new-products"]
+      },
+      "tech-news": {
+        "title": "科技新闻",
+        "limit": 40,
+        "categories": ["tech-news"]
+      },
+      "finance-news": {
+        "title": "财经新闻",
+        "limit": 10,
+        "categories": ["finance"]
+      },
+      "tech-blog": {
+        "title": "科技博客",
+        "limit": 8,
+        "categories": ["tech-blog"]
+      },
+      "ai4s-research": {
+        "title": "AI4S｜压电/铁电/热电材料与仿真",
+        "limit": 40,
+        "categories": ["ai4s-materials", "ai4s-simulation"]
+      }
+    }
+  },
+  "sources": {
+    "hackernews": {
+      "enabled": true,
+      "fetch_top_stories": 15,
+      "min_score": 150
+    },
+    "reddit": {
+      "enabled": false,
+      "subreddits": [
+        { "subreddit": "MachineLearning", "sort": "hot", "fetch_limit": 15, "min_score": 50 }
+      ],
+      "fetch_comments": 5
+    },
+    "rss": [
+      { "name": "Simon Willison", "url": "https://simonwillison.net/atom/everything/", "enabled": true, "category": "ai-tools" },
+      { "name": "OpenAI Blog", "url": "https://openai.com/blog/rss.xml", "enabled": true, "category": "ai-official" },
+      { "name": "Hugging Face Blog", "url": "https://huggingface.co/blog/feed.xml", "enabled": true, "category": "ai-tools" },
+      { "name": "Hacker News AI", "url": "https://hnrss.org/newest?q=AI", "enabled": true, "category": "ai-trends" },
+      { "name": "Product Hunt", "url": "https://producthunt.com/feed", "enabled": true, "category": "new-products" },
+      { "name": "少数派", "url": "https://sspai.com/feed", "enabled": true, "category": "tech-blog" },
+      { "name": "奇客Solidot", "url": "https://solidot.org/index.rss", "enabled": true, "category": "tech-blog" },
+      { "name": "arXiv 材料科学（压电/铁电/热电）", "url": "https://rss.arxiv.org/rss/cond-mat.mtrl-sci?search_query=piezoelectric+OR+ferroelectric+OR+thermoelectric", "enabled": true, "category": "ai4s-materials" },
+      { "name": "arXiv 计算物理（相场/有限元）", "url": "https://rss.arxiv.org/rss/physics.comp-ph?search_query=phase-field+OR+finite+element+OR+piezoelectric+OR+ferroelectric", "enabled": true, "category": "ai4s-simulation" }
+    ],
+    "github": [
+      { "type": "repo_releases", "owner": "openai", "repo": "whisper", "enabled": true },
+      { "type": "repo_releases", "owner": "anthropics", "repo": "claude-code", "enabled": true }
+    ]
+  }
+}
