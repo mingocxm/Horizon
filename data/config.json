@@ -9,10 +9,11 @@
     "extra_body": null,
     "temperature": 0.3,
     "max_tokens": 4096,
-    "throttle_sec": 2.0,
+    "throttle_sec": 3.0,
     "analysis_concurrency": 1,
     "enrichment_concurrency": 1,
-    "languages": ["zh"]
+    "languages": ["zh"],
+    "request_timeout": 60
   },
   "sources": {
     "hackernews": {
