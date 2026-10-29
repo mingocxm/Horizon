@@ -10,5 +10,9 @@
     "analysis_max_chars": 16000,
     "enrichment_max_chars": 24000,
     "sampling": "prefix"
+  },
+  "enrichment": {
+    "prompt": "",
+    "blocks": []
   }
 }
