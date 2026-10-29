@@ -29,21 +29,21 @@
     }
   },
   "digest": {
-    "max_items": 150,
+    "max_items": 130,
     "category_groups": {
       "ai-creator": {
         "name": "AI创作者雷达",
-        "limit": 40,
+        "limit": 30,
         "categories": ["ai-official", "ai-tools", "ai-trends", "new-products"]
       },
       "tech-news": {
         "name": "科技新闻",
-        "limit": 40,
+        "limit": 30,
         "categories": ["tech-news"]
       },
       "finance-news": {
         "name": "财经新闻",
-        "limit": 10,
+        "limit": 8,
         "categories": ["finance"]
       },
       "tech-blog": {
