@@ -12,7 +12,14 @@
     "sampling": "prefix"
   },
   "enrichment": {
-    "prompt": "",
-    "blocks": []
+    "prompt": "enrichment.md",
+    "blocks": [
+      {
+        "id": "dummy",
+        "type": "section",
+        "tools": [],
+        "primary": true
+      }
+    ]
   }
 }
